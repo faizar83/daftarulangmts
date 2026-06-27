@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - MTs. AL-MAJIDIYAH NWDI MAJIDI</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .sidebar-active { background-color: #046a38; border-left: 4px solid #10b981; }
         
@@ -170,7 +170,7 @@
                             <div class="h-64"><canvas id="chartPembayaran"></canvas></div>
                         </div>
                         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4">Statistik Jurusan</h4>
+                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4">Statistik Kelas Santri</h4>
                             <div class="h-64 flex flex-col justify-center"><canvas id="chartJurusan"></canvas></div>
                         </div>
                     </div>
@@ -265,12 +265,18 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Pilihan Kelas </label>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Pilihan Kelas *</label>
                                     <select id="studentClass" required onchange="handleClassChange()" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 focus:border-emerald-500 focus:outline-none">
                                         <option value="">-- Pilih Kelas --</option>
                                         <option value="VII">Kelas VII</option>
                                         <option value="VIII">Kelas VIII</option>
                                         <option value="IX">Kelas IX</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Jurusan / Program *</label>
+                                    <select id="studentMajor" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 focus:border-emerald-500 focus:outline-none">
+                                        <option value="">-- Pilih Jurusan --</option>
                                     </select>
                                 </div>
                                 <div>
@@ -364,9 +370,9 @@
                                 <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="SKL" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">SKL</span></label>
                                 <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Pas Photo" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Pas Photo</span></label>
                                 <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Kartu Keluarga" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Kartu Keluarga</span></label>
-                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Kartu Keluarga" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">KTP Bapak dan Ibu</span></label>
-                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Kartu Keluarga" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Akte Kelahiran</span></label>
-                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Kartu Keluarga" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Kartu Bantuan Sosial (KIP, KKS dan PKH)</span></label>
+                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="KTP Orang Tua" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">KTP Bapak dan Ibu</span></label>
+                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Akte Kelahiran" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Akte Kelahiran</span></label>
+                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Kartu Bansos" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Kartu Bantuan Sosial (KIP/PKH)</span></label>
                             </div>
                         </div>
 
@@ -595,17 +601,9 @@
             
             if (!classSelect) return;
 
-            if (classSelect === 'VII') {
-                const opsiKelasVII = [
-                    { value: "Non Jurusan", text: "Non Jurusan" },
-                ];
-                opsiKelasX.forEach(j => { majorSelect.innerHTML += `<option value="${j.value}">${j.text}</option>`; });
-            } else {
-                const opsiLanjutan = [
-                    { value: "Non Jurusan", text: "Non Jurusan" },
-                ];
-                opsiLanjutan.forEach(j => { majorSelect.innerHTML += `<option value="${j.value}">${j.text}</option>`; });
-            }
+            // Menggunakan opsi reguler MTs/SMP (Tanpa Penjurusan SMA)
+            const opsiReguler = [{ value: "Reguler", text: "Kelas Reguler (Non-Jurusan)" }];
+            opsiReguler.forEach(j => { majorSelect.innerHTML += `<option value="${j.value}">${j.text}</option>`; });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -807,18 +805,17 @@
             if (chartInstanceMajor) chartInstanceMajor.destroy();
             const ctxMajor = document.getElementById('chartJurusan').getContext('2d');
             
-            const counts = { agama: 0, ipa: 0, ips: 0, bahasa: 0 };
+            const counts = { vii: 0, viii: 0, ix: 0 };
             db.forEach(s => {
-                if(s.jurusan === 'Agama') counts.agama++;
-                else if(s.jurusan === 'IPA') counts.ipa++;
-                else if(s.jurusan === 'IPS') counts.ips++;
-                else if(s.jurusan === 'Bahasa') counts.bahasa++;
+                if(s.kelas === 'VII') counts.vii++;
+                else if(s.kelas === 'VIII') counts.viii++;
+                else if(s.kelas === 'IX') counts.ix++;
             });
 
             const isDbEmpty = db.length === 0;
-            const chartData = isDbEmpty ? [1] : [counts.agama, counts.ipa, counts.ips, counts.bahasa];
-            const chartLabels = isDbEmpty ? ['Belum Ada Data'] : ['Agama', 'IPA', 'IPS', 'Bahasa'];
-            const chartColors = isDbEmpty ? ['#cbd5e1'] : ['#046a38', '#2563eb', '#ea580c', '#8b5cf6'];
+            const chartData = isDbEmpty ? [1] : [counts.vii, counts.viii, counts.ix];
+            const chartLabels = isDbEmpty ? ['Belum Ada Data'] : ['Kelas VII', 'Kelas VIII', 'Kelas IX'];
+            const chartColors = isDbEmpty ? ['#cbd5e1'] : ['#046a38', '#2563eb', '#ea580c'];
 
             chartInstanceMajor = new Chart(ctxMajor, {
                 type: 'doughnut',
@@ -933,7 +930,7 @@
             if(badge1) badge1.innerHTML = "KWITANSI RESMI - LEMBAR 1 (SANTRI)";
             
             const divider = document.createElement('div');
-            divider.className = "my-6 border-b-2 border-dashed border-slate-400 text-center relative h-4 no-print-pdf";
+            divider.className = "my-6 border-b-2 border-dashed border-slate-400 text-center relative h-4";
             divider.innerHTML = `<span class="bg-white px-3 text-[10px] font-bold text-slate-400 tracking-widest uppercase absolute -top-2.5 left-1/2 transform -translate-x-1/2">✂️ POTONG DI SINI</span>`;
             
             const copy2 = originalContent.cloneNode(true);
@@ -975,5 +972,4 @@
         }
     </script>
 </body>
-</html><!DOCTYPE html>
-<html>
+</html>

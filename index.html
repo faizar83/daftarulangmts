@@ -312,7 +312,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-600 mb-1">NISN *</label>
-                                    <input type="number" id="nisn" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none" placeholder="10 Digit Angka">
+                                    <input type="number" id="nisn" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-600 mb-1">Orang Tua/Wali (Sesuai KK) *</label>
@@ -464,7 +464,9 @@
                         </div>
                         <div class="text-right">
                             <span id="kwSubTitleLabel" class="text-[9px] font-bold border px-1.5 py-0.5 rounded bg-slate-50">KWITANSI RESMI DAFTAR ULANG</span>
-                            <p id="kwTanggal" class="text-[9px] font-mono mt-1">Tanggal: --</p>
+                            <!-- PERUBAHAN DI SINI: Menambahkan baris No. Kwitansi otomatis di bawah teks tanggal -->
+                            <p id="resKwNo" class="text-[10px] font-bold text-emerald-800 font-mono mt-1">No. Kwitansi: --</p>
+                            <p id="kwTanggal" class="text-[9px] font-mono mt-0.5">Tanggal: --</p>
                         </div>
                     </div>
                     
@@ -523,7 +525,7 @@
         let currentStudentCleanName = "Santri";
 
         const hargaBakuCowok = {
-            "Pembayaran Pembangunan 50%": 500000, "SPP 2 Bulan": 150000, "Kitab Kuning & Al-Quran": 200000,
+            "Pembayaran Pembangunan 50%": 500000, "Kitab Kuning & Al-Quran": 200000,
             "Amal Jariah Bulanan": 10000, "Seragam Olah Raga": 130000, "Seragam Abu Putih": 190000,
             "Seragam Pramuka Lengkap": 190000, "Seragam Taqwa Khas": 190000, "Peci Atribut Putih": 25000,
             "Buku Raport & Map": 60000, "Katering Dan Pembinaan": 400000, "Atribut Photo": 10000,
@@ -532,7 +534,7 @@
         };
 
         const hargaBakuCewek = {
-            "Pembayaran Pembangunan 50%": 500000, "SPP 2 Bulan": 150000, "Kitab Kuning & Al-Quran": 200000,
+            "Pembayaran Pembangunan 50%": 500000, "Kitab Kuning & Al-Quran": 200000,
             "Amal Jariah Bulanan": 10000, "Seragam Olah Raga": 160000, "Seragam Abu Putih": 200000,
             "Seragam Pramuka Lengkap": 200000, "Seragam Taqwa Khas": 200000, "Jilbab Sekolah 2 Buah": 140000,
             "Buku Raport & Map": 60000, "Katering Dan Pembinaan": 400000, "Atribut Photo": 10000,
@@ -603,7 +605,6 @@
             
             if (!classSelect) return;
 
-            // Menggunakan opsi reguler MTs/SMP (Tanpa Penjurusan SMA)
             const opsiReguler = [{ value: "Reguler", text: "Kelas Reguler (Non-Jurusan)" }];
             opsiReguler.forEach(j => { majorSelect.innerHTML += `<option value="${j.value}">${j.text}</option>`; });
         }
@@ -686,6 +687,9 @@
             db.push(payload);
             localStorage.setItem("database_santri", JSON.stringify(db));
 
+            // PERUBAHAN DI SINI: Menyisipkan nomor kwitansi ke tampilan modal
+            document.getElementById('resKwNo').innerText = `No. Kwitansi: ${payload.nomorKwitansi}`;
+            
             document.getElementById('resName').innerText = `: ${payload.nama}`;
             document.getElementById('resNisn').innerText = `: ${payload.nisn}`;
             document.getElementById('resDorm').innerText = `: ${payload.domisili}`;
@@ -720,6 +724,9 @@
             }
 
             currentStudentCleanName = student.nama.trim().replace(/\s+/g, '_');
+
+            // PERUBAHAN DI SINI: Menyisipkan nomor kwitansi ke modal saat cetak ulang dilakukan
+            document.getElementById('resKwNo').innerText = `No. Kwitansi: ${student.nomorKwitansi || 'KW/2026/0000'}`;
 
             document.getElementById('resName').innerText = `: ${student.nama}`;
             document.getElementById('resNisn').innerText = `: ${student.nisn}`;

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta name="google-site-verification" content="0gz7RyfccAVm6tyv9kXOnUhW0VxHv5ijATzvF2MK8tM" />
@@ -27,7 +27,7 @@
 
     <div id="passwordGate" class="fixed inset-0 bg-emerald-900 flex items-center justify-center p-4 z-50">
         <div class="bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center border border-emerald-600">
-            <img src="https://uploads.onecompiler.io/44rv6xs4x/1781484285589/Logo%20MTS%20NEW.png" alt="Logo" class="h-24 mx-auto mb-4 object-contain">
+            <img src="https://uploads.onecompiler.io/44rv6xs4x/44rxebzu8/logo%20ma.jpg" alt="Logo" class="h-24 mx-auto mb-4 object-contain">
             <h3 class="text-lg font-bold text-slate-900 leading-tight">MTs. AL-MAJIDIYAH NWDI MAJIDI</h3>
             <p class="text-xs text-slate-500 mb-6">Sistem Informasi Pendaftaran Terkunci Login Dulu Ya!!!</p>
             <form onsubmit="checkPassword(event)" class="space-y-4">
@@ -44,7 +44,7 @@
         
         <aside class="w-64 bg-[#024424] text-slate-200 flex flex-col flex-shrink-0 h-full no-print">
             <div class="p-4 bg-white flex items-center space-x-3 border-b border-slate-100">
-                <img src="https://uploads.onecompiler.io/44rv6xs4x/1781484285589/Logo%20MTS%20NEW.png" class="h-11 w-auto" alt="Logo">
+                <img src="https://uploads.onecompiler.io/44rv6xs4x/44rxebzu8/logo%20ma.jpg" class="h-11 w-auto" alt="Logo">
                 <div>
                     <h2 class="text-xs font-extrabold text-emerald-900 tracking-tight leading-tight">MTs. AL-MAJIDIYAH NWDI MAJIDI</h2>
                     <p class="text-[10px] text-slate-500 mt-0.5">Sistem Daftar Ulang</p>
@@ -171,7 +171,7 @@
                             <div class="h-64"><canvas id="chartPembayaran"></canvas></div>
                         </div>
                         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4">Statistik Kelas Santri</h4>
+                            <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4">Statistik Jurusan</h4>
                             <div class="h-64 flex flex-col justify-center"><canvas id="chartJurusan"></canvas></div>
                         </div>
                     </div>
@@ -261,7 +261,7 @@
                                     <label class="block text-xs font-semibold text-slate-600 mb-1">Status Santri *</label>
                                     <select id="studentStatus" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 focus:border-emerald-500 focus:outline-none">
                                         <option value="">-- Pilih Status --</option>
-                                        <option value="Santri Baru">Santri Baru (Lulusan MI/SD)</option>
+                                        <option value="Santri Baru">Santri Baru (Lulusan SD/MI)</option>
                                         <option value="Santri Lama">Santri Lama (Naik Kelas)</option>
                                     </select>
                                 </div>
@@ -275,10 +275,9 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Jurusan / Program *</label>
+                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Pilihan Jurusan *</label>
                                     <select id="studentMajor" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs text-slate-800 focus:border-emerald-500 focus:outline-none">
                                         <option value="">-- Pilih Jurusan --</option>
-                                        <option value="">Umum</option>
                                     </select>
                                 </div>
                                 <div>
@@ -312,15 +311,11 @@
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-600 mb-1">NISN *</label>
-                                    <input type="number" id="nisn" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none">
+                                    <input type="number" id="nisn" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none" placeholder="10 Digit Angka">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-600 mb-1">Orang Tua/Wali (Sesuai KK) *</label>
                                     <input type="text" id="waliName" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none uppercase" placeholder="Nama Bapak/Ibu">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-600 mb-1">Alamat (Sesuai KK) *</label>
-                                    <input type="text" id="alamatName" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none uppercase" placeholder="Contoh : Majidi">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-semibold text-slate-600 mb-1">Jenis Kelamin *</label>
@@ -368,13 +363,13 @@
                                 Verifikasi Berkas Fisik
                             </h2>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Ijazah" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Ijazah</span></label>
+                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Ijazah" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Ijazah / SKHU</span></label>
                                 <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="SKL" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">SKL</span></label>
                                 <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Pas Photo" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Pas Photo</span></label>
                                 <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Kartu Keluarga" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Kartu Keluarga</span></label>
                                 <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="KTP Orang Tua" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">KTP Bapak dan Ibu</span></label>
                                 <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Akte Kelahiran" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Akte Kelahiran</span></label>
-                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Kartu Bansos" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Kartu Bantuan Sosial (KIP/PKH)</span></label>
+                                <label class="flex items-center p-2.5 border rounded-lg cursor-pointer bg-slate-50 text-xs"><input type="checkbox" name="documents" value="Bansos" class="w-4 h-4 text-emerald-600 rounded"><span class="ml-2">Kartu Bantuan Sosial (KIP, KKS dan PKH)</span></label>
                             </div>
                         </div>
 
@@ -421,7 +416,7 @@
                                     <th class="p-3">Tanggal Input</th>
                                     <th class="p-3">No. Kwitansi</th>
                                     <th class="p-3">Nama Lengkap</th>
-                                    <th class="p-3">Kelas/Jurusan</th>
+                                    <th class="p-3">Kelas & Jurusan</th>
                                     <th class="p-3 text-right">Jumlah Setoran</th>
                                     <th class="p-3 text-center">Status Nota</th>
                                 </tr>
@@ -456,7 +451,7 @@
                 <div class="border p-4 rounded bg-white relative" id="masterReceiptContent">
                     <div class="flex justify-between items-center border-b pb-2 mb-2">
                         <div class="flex items-center space-x-2">
-                            <img src="https://uploads.onecompiler.io/44rv6xs4x/1781484285589/Logo%20MTS%20NEW.png" class="h-10 w-auto" alt="Logo">
+                            <img src="https://uploads.onecompiler.io/44rv6xs4x/44rxebzu8/logo%20ma.jpg" class="h-10 w-auto" alt="Logo">
                             <div>
                                 <h3 class="text-xs font-black">MTs. AL-MAJIDIYAH NWDI MAJIDI</h3>
                                 <p class="text-[9px] text-slate-500">Kec. Selong, Kabupaten Lombok Timur</p>
@@ -464,9 +459,8 @@
                         </div>
                         <div class="text-right">
                             <span id="kwSubTitleLabel" class="text-[9px] font-bold border px-1.5 py-0.5 rounded bg-slate-50">KWITANSI RESMI DAFTAR ULANG</span>
-                            <!-- PERUBAHAN DI SINI: Menambahkan baris No. Kwitansi otomatis di bawah teks tanggal -->
-                            <p id="resKwNo" class="text-[10px] font-bold text-emerald-800 font-mono mt-1">No. Kwitansi: --</p>
-                            <p id="kwTanggal" class="text-[9px] font-mono mt-0.5">Tanggal: --</p>
+                            <p id="kwTanggal" class="text-[9px] font-mono mt-1">Tanggal: --</p>
+                            <p class="text-[9px] font-bold font-mono text-emerald-800 mt-0.5">No: <span id="resKwNo">-</span></p>
                         </div>
                     </div>
                     
@@ -495,7 +489,7 @@
                         <tfoot class="font-bold bg-slate-50 text-right">
                             <tr><td colspan="3" class="p-1 border">TOTAL SEHARUSNYA:</td><td id="rcTotalBaku" class="p-1 border font-mono">Rp 0</td><td class="border"></td></tr>
                             <tr class="text-emerald-800"><td colspan="3" class="p-1 border">TOTAL DISETOR:</td><td id="rcTotalBayar" class="p-1 border font-mono">Rp 0</td><td class="border"></td></tr>
-                            <tr class="text-rose-700"><td colspan="4" class="p-1 border">SISA TUNGGAKAN:</td><td id="rcTotalSisa" class="p-1 border font-mono">Rp 0</td></tr>
+                            <tr><td colspan="4" class="p-1 border text-rose-700">SISA TUNGGAKAN:</td><td id="rcTotalSisa" class="p-1 border font-mono text-rose-700">Rp 0</td></tr>
                         </tfoot>
                     </table>
                     
@@ -518,6 +512,90 @@
     
     <div id="printDoubleContainer" class="hidden"></div>
 
+    <div id="editModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50 hidden no-print">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col my-8 max-h-[90vh]">
+            <div class="bg-gradient-to-r from-amber-600 to-amber-700 px-4 py-3 text-white flex justify-between items-center shrink-0">
+                <div>
+                    <h3 class="font-bold text-sm flex items-center gap-2"><i class="fas fa-edit"></i> Perbarui Data & Pembayaran Santri</h3>
+                    <p class="text-[10px] text-amber-100/80">Modifikasi berkas profil administrasi lokal</p>
+                </div>
+                <button onclick="closeEditModal()" class="text-white/80 hover:text-white text-base"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <form id="editForm" onsubmit="handleUpdateForm(event)" class="p-4 space-y-3 overflow-y-auto flex-1">
+                <input type="hidden" id="editRegNo">
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Nama Lengkap Santri</label>
+                        <input type="text" id="editStudentName" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs uppercase focus:outline-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Nomor NISN (10 Digit)</label>
+                        <input type="number" id="editNisn" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:outline-emerald-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-4 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Status Akademik</label>
+                        <select id="editStudentStatus" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:outline-emerald-500">
+                            <option value="Santri Baru">Santri Baru</option>
+                            <option value="Santri Lama">Santri Lama</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Tingkat Kelas</label>
+                        <select id="editStudentClass" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:outline-emerald-500">
+                            <option value="VII">Kelas VII</option>
+                            <option value="VIII">Kelas VIII</option>
+                            <option value="IX">Kelas IX</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Jurusan</label>
+                        <select id="editStudentMajor" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:outline-emerald-500">
+                            <option value="Reguler">Reguler</option>
+                            <option value="Agama">Agama</option>
+                            <option value="IPA">IPA</option>
+                            <option value="Bahasa">Bahasa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Sistem Domisili</label>
+                        <select id="editDormitoryStatus" required class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs focus:outline-emerald-500">
+                            <option value="Asrama">Asrama</option>
+                            <option value="Non Asrama">Non Asrama</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="border-t pt-2">
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1">
+                        <i class="fas fa-wallet text-amber-600"></i> Edit Nominal Pembayaran Kuitansi:
+                    </label>
+                    <div class="border rounded-lg overflow-hidden max-h-60 overflow-y-auto">
+                        <table class="w-full text-xs text-left">
+                            <thead class="bg-slate-50 border-b text-slate-600 sticky top-0">
+                                <tr>
+                                    <th class="p-2">Komponen Biaya</th>
+                                    <th class="p-2 text-right">Baku</th>
+                                    <th class="p-2 text-center w-36">Bayar (Rp)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="editPaymentTableBody" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-2 pt-3 border-t shrink-0">
+                    <button type="button" onclick="closeEditModal()" class="bg-slate-200 text-slate-700 text-xs font-medium px-4 py-2 rounded-lg hover:bg-slate-300">Batal</button>
+                    <button type="submit" class="bg-amber-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-amber-700">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         const OBFUSCATED_PASS = btoa("adminmadrasah123"); 
         let chartInstancePay = null;
@@ -525,7 +603,7 @@
         let currentStudentCleanName = "Santri";
 
         const hargaBakuCowok = {
-            "Pembayaran Pembangunan 50%": 500000, "Kitab Kuning & Al-Quran": 200000,
+            "Pembayaran Pembangunan 50%": 500000, "SPP 2 Bulan": 150000, "Kitab Kuning & Al-Quran": 200000,
             "Amal Jariah Bulanan": 10000, "Seragam Olah Raga": 130000, "Seragam Abu Putih": 190000,
             "Seragam Pramuka Lengkap": 190000, "Seragam Taqwa Khas": 190000, "Peci Atribut Putih": 25000,
             "Buku Raport & Map": 60000, "Katering Dan Pembinaan": 400000, "Atribut Photo": 10000,
@@ -534,7 +612,7 @@
         };
 
         const hargaBakuCewek = {
-            "Pembayaran Pembangunan 50%": 500000, "Kitab Kuning & Al-Quran": 200000,
+            "Pembayaran Pembangunan 50%": 500000, "SPP 2 Bulan": 150000, "Kitab Kuning & Al-Quran": 200000,
             "Amal Jariah Bulanan": 10000, "Seragam Olah Raga": 160000, "Seragam Abu Putih": 200000,
             "Seragam Pramuka Lengkap": 200000, "Seragam Taqwa Khas": 200000, "Jilbab Sekolah 2 Buah": 140000,
             "Buku Raport & Map": 60000, "Katering Dan Pembinaan": 400000, "Atribut Photo": 10000,
@@ -555,7 +633,7 @@
                 document.getElementById('gatePassword').value = '';
             }
         }
-        
+
         function systemLogout() {
             if(confirm("Apakah anda yakin ingin mengunci kembali sistem dashboard?")) {
                 document.getElementById('gatePassword').value = '';
@@ -603,10 +681,62 @@
             
             majorSelect.innerHTML = '<option value="">-- Pilih Jurusan --</option>';
             
-            if (!classSelect) return;
+            if (classSelect) {
+                const opsiJurusan = [
+                    { value: "Reguler", text: "Reguler" },
+                    { value: "Agama", text: "Agama" },
+                    { value: "IPA", text: "IPA" },
+                    { value: "Bahasa", text: "Bahasa" }
+                ];
+                
+                opsiJurusan.forEach(jurusan => {
+                    const opt = document.createElement('option');
+                    opt.value = jurusan.value;
+                    opt.textContent = jurusan.text;
+                    majorSelect.appendChild(opt);
+                });
+            }
+        }
 
-            const opsiReguler = [{ value: "Reguler", text: "Kelas Reguler (Non-Jurusan)" }];
-            opsiReguler.forEach(j => { majorSelect.innerHTML += `<option value="${j.value}">${j.text}</option>`; });
+        function exportExcel() {
+            const db = JSON.parse(localStorage.getItem("database_santri")) || [];
+            
+            if (db.length === 0) {
+                alert('Database masih kosong, tidak ada data santri untuk diekspor.');
+                return;
+            }
+
+            const laporanExcel = db.map((santri, index) => {
+                return {
+                    "No": index + 1,
+                    "Tanggal Daftar": santri.tanggalInput || "-",
+                    "No. Registrasi": santri.nomorRegistrasi || "-",
+                    "No. Kuitansi": santri.nomorKwitansi || "-",
+                    "Nama Lengkap": santri.nama || "-",
+                    "NISN": santri.nisn || "-",
+                    "Status": santri.statusAcademic || "-",
+                    "Kelas": santri.kelas || "-",
+                    "Jurusan": santri.jurusan || "-",
+                    "Sistem Domisili": santri.domisili || "-",
+                    "Wali Murid": santri.wali || "-",
+                    "Ukuran Baju": santri.ukuranBaju || "-",
+                    "Total Baku (Rp)": santri.totalBaku || 0,
+                    "Total Terbayar (Rp)": santri.totalBayar || 0,
+                    "Sisa Tunggakan (Rp)": santri.totalSisa || 0,
+                    "Status Pembayaran": (santri.totalSisa <= 0) ? "LUNAS" : "BELUM LUNAS"
+                };
+            });
+
+            const worksheet = XLSX.utils.json_to_sheet(laporanExcel);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Data Daftar Ulang");
+
+            const maxKeys = Object.keys(laporanExcel[0]);
+            worksheet["!cols"] = maxKeys.map(key => ({
+                wch: Math.max(...laporanExcel.map(row => row[key] ? row[key].toString().length : 0).concat(key.length)) + 3
+            }));
+
+            XLSX.writeFile(workbook, `Laporan_DaftarUlang_MTs_AlMajidiyah_${new Date().getFullYear()}.xlsx`);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -687,28 +817,44 @@
             db.push(payload);
             localStorage.setItem("database_santri", JSON.stringify(db));
 
-            // PERUBAHAN DI SINI: Menyisipkan nomor kwitansi ke tampilan modal
-            document.getElementById('resKwNo').innerText = `No. Kwitansi: ${payload.nomorKwitansi}`;
-            
             document.getElementById('resName').innerText = `: ${payload.nama}`;
             document.getElementById('resNisn').innerText = `: ${payload.nisn}`;
             document.getElementById('resDorm').innerText = `: ${payload.domisili}`;
             document.getElementById('resClassMajor').innerText = `: Kelas ${payload.kelas} - ${payload.jurusan}`;
             document.getElementById('kwTanggal').innerText = `Tanggal: ${payload.tanggalInput}`;
             document.getElementById('kwTtdTgl').innerText = payload.tanggalInput;
+            document.getElementById('resKwNo').innerText = payload.nomorKwitansi;
             
             const listTbody = document.getElementById('receiptListItems');
             listTbody.innerHTML = '';
+            
             itemPayments.forEach((p, index) => {
                 if(p.bayar > 0) {
-                    const row = `<tr><td class="border text-center">${index+1}</td><td class="border">${p.item}</td><td class="border text-right">${formatRupiah(p.baku)}</td><td class="border text-right font-bold">${formatRupiah(p.bayar)}</td><td class="border text-right text-rose-600">${formatRupiah(p.sisa)}</td></tr>`;
+                    const sisaTeks = p.sisa < 0 ? `Lebih: ${formatRupiah(Math.abs(p.sisa))}` : formatRupiah(p.sisa);
+                    const sisaWarna = p.sisa < 0 ? 'text-emerald-600 font-bold' : (p.sisa > 0 ? 'text-rose-600' : 'text-slate-500');
+
+                    const row = `<tr>
+                        <td class="border text-center">${index+1}</td>
+                        <td class="border">${p.item}</td>
+                        <td class="border text-right">${formatRupiah(p.baku)}</td>
+                        <td class="border text-right font-bold">${formatRupiah(p.bayar)}</td>
+                        <td class="border text-right ${sisaWarna}">${sisaTeks}</td>
+                    </tr>`;
                     listTbody.innerHTML += row;
                 }
             });
 
+            const totalSisaMurni = totalBaku - totalBayar;
+            const labelSisa = document.getElementById('rcTotalSisa').parentElement;
+
+            if (totalSisaMurni < 0) {
+                labelSisa.innerHTML = `<td colspan="4" class="p-1 border text-emerald-700 font-bold">KELEBIHAN PEMBAYARAN:</td><td id="rcTotalSisa" class="p-1 border font-mono text-emerald-700 font-bold">${formatRupiah(Math.abs(totalSisaMurni))}</td>`;
+            } else {
+                labelSisa.innerHTML = `<td colspan="4" class="p-1 border text-rose-700">SISA TUNGGAKAN:</td><td id="rcTotalSisa" class="p-1 border font-mono text-rose-700">${formatRupiah(totalSisaMurni)}</td>`;
+            }
+
             document.getElementById('rcTotalBaku').innerText = formatRupiah(totalBaku);
             document.getElementById('rcTotalBayar').innerText = formatRupiah(totalBayar);
-            document.getElementById('rcTotalSisa').innerText = formatRupiah(totalBaku - totalBayar);
             document.getElementById('kwTerbilang').innerText = hitungTerbilang(totalBayar) + " Rupiah";
 
             document.getElementById('receiptModal').classList.remove('hidden');
@@ -725,34 +871,51 @@
 
             currentStudentCleanName = student.nama.trim().replace(/\s+/g, '_');
 
-            // PERUBAHAN DI SINI: Menyisipkan nomor kwitansi ke modal saat cetak ulang dilakukan
-            document.getElementById('resKwNo').innerText = `No. Kwitansi: ${student.nomorKwitansi || 'KW/2026/0000'}`;
-
             document.getElementById('resName').innerText = `: ${student.nama}`;
             document.getElementById('resNisn').innerText = `: ${student.nisn}`;
             document.getElementById('resDorm').innerText = `: ${student.domisili}`;
             document.getElementById('resClassMajor').innerText = `: Kelas ${student.kelas} - ${student.jurusan}`;
             document.getElementById('kwTanggal').innerText = `Tanggal: ${student.tanggalInput}`;
             document.getElementById('kwTtdTgl').innerText = student.tanggalInput;
-            
+            document.getElementById('resKwNo').innerText = student.nomorKwitansi || 'KW/2026/0000';
+
             const listTbody = document.getElementById('receiptListItems');
             listTbody.innerHTML = '';
             
             if(student.itemPayments && student.itemPayments.length > 0) {
                 student.itemPayments.forEach((p, index) => {
                     if(p.bayar > 0) {
-                        const row = `<tr><td class="border text-center">${index+1}</td><td class="border">${p.item}</td><td class="border text-right">${formatRupiah(p.baku)}</td><td class="border text-right font-bold">${formatRupiah(p.bayar)}</td><td class="border text-right text-rose-600">${formatRupiah(p.sisa)}</td></tr>`;
+                        const sisaTeks = p.sisa < 0 ? `Lebih: ${formatRupiah(Math.abs(p.sisa))}` : formatRupiah(p.sisa);
+                        const sisaWarna = p.sisa < 0 ? 'text-emerald-600 font-bold' : (p.sisa > 0 ? 'text-rose-600' : 'text-slate-500');
+
+                        const row = `<tr>
+                            <td class="border text-center">${index+1}</td>
+                            <td class="border">${p.item}</td>
+                            <td class="border text-right">${formatRupiah(p.baku)}</td>
+                            <td class="border text-right font-bold">${formatRupiah(p.bayar)}</td>
+                            <td class="border text-right ${sisaWarna}">${sisaTeks}</td>
+                        </tr>`;
                         listTbody.innerHTML += row;
                     }
                 });
             } else {
-                const row = `<tr><td class="border text-center">1</td><td class="border">Pembayaran Global (Log Lama)</td><td class="border text-right">${formatRupiah(student.totalBaku)}</td><td class="border text-right font-bold">${formatRupiah(student.totalBayar)}</td><td class="border text-right text-rose-600">${formatRupiah(student.totalSisa)}</td></tr>`;
+                const sisaTeksGlobal = student.totalSisa < 0 ? `Lebih: ${formatRupiah(Math.abs(student.totalSisa))}` : formatRupiah(student.totalSisa);
+                const sisaWarnaGlobal = student.totalSisa < 0 ? 'text-emerald-600 font-bold' : 'text-rose-600';
+                const row = `<tr><td class="border text-center">1</td><td class="border">Pembayaran Global (Log Lama)</td><td class="border text-right">${formatRupiah(student.totalBaku)}</td><td class="border text-right font-bold">${formatRupiah(student.totalBayar)}</td><td class="border text-right ${sisaWarnaGlobal}">${sisaTeksGlobal}</td></tr>`;
                 listTbody.innerHTML += row;
+            }
+
+            const totalSisaMurni = student.totalSisa;
+            const labelSisaReprint = document.getElementById('rcTotalSisa').parentElement;
+
+            if (totalSisaMurni < 0) {
+                labelSisaReprint.innerHTML = `<td colspan="4" class="p-1 border text-emerald-700 font-bold">KELEBIHAN PEMBAYARAN:</td><td id="rcTotalSisa" class="p-1 border font-mono text-emerald-700 font-bold">${formatRupiah(Math.abs(totalSisaMurni))}</td>`;
+            } else {
+                labelSisaReprint.innerHTML = `<td colspan="4" class="p-1 border text-rose-700">SISA TUNGGAKAN:</td><td id="rcTotalSisa" class="p-1 border font-mono text-rose-700">${formatRupiah(totalSisaMurni)}</td>`;
             }
 
             document.getElementById('rcTotalBaku').innerText = formatRupiah(student.totalBaku);
             document.getElementById('rcTotalBayar').innerText = formatRupiah(student.totalBayar);
-            document.getElementById('rcTotalSisa').innerText = formatRupiah(student.totalSisa);
             document.getElementById('kwTerbilang').innerText = hitungTerbilang(student.totalBayar) + " Rupiah";
 
             document.getElementById('receiptModal').classList.remove('hidden');
@@ -814,17 +977,18 @@
             if (chartInstanceMajor) chartInstanceMajor.destroy();
             const ctxMajor = document.getElementById('chartJurusan').getContext('2d');
             
-            const counts = { vii: 0, viii: 0, ix: 0 };
+            const counts = { agama: 0, ipa: 0, bahasa: 0, reguler: 0 };
             db.forEach(s => {
-                if(s.kelas === 'VII') counts.vii++;
-                else if(s.kelas === 'VIII') counts.viii++;
-                else if(s.kelas === 'IX') counts.ix++;
+                if(s.jurusan === 'Agama') counts.agama++;
+                else if(s.jurusan === 'IPA') counts.ipa++;
+                else if(s.jurusan === 'Bahasa') counts.bahasa++;
+                else if(s.jurusan === 'Reguler') counts.reguler++;
             });
 
             const isDbEmpty = db.length === 0;
-            const chartData = isDbEmpty ? [1] : [counts.vii, counts.viii, counts.ix];
-            const chartLabels = isDbEmpty ? ['Belum Ada Data'] : ['Kelas VII', 'Kelas VIII', 'Kelas IX'];
-            const chartColors = isDbEmpty ? ['#cbd5e1'] : ['#046a38', '#2563eb', '#ea580c'];
+            const chartData = isDbEmpty ? [1] : [counts.reguler, counts.agama, counts.ipa, counts.bahasa];
+            const chartLabels = isDbEmpty ? ['Belum Ada Data'] : ['Reguler', 'Agama', 'IPA', 'Bahasa'];
+            const chartColors = isDbEmpty ? ['#cbd5e1'] : ['#046a38', '#ea580c', '#2563eb', '#8b5cf6'];
 
             chartInstanceMajor = new Chart(ctxMajor, {
                 type: 'doughnut',
@@ -855,10 +1019,13 @@
                         <td class="p-3 text-slate-600">${s.statusAcademic} / Kelas ${s.kelas || '-'} (${s.jurusan || '-'})</td>
                         <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${s.domisili === 'Asrama' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}">${s.domisili}</span></td>
                         <td class="p-3 text-right font-mono font-medium">${formatRupiah(s.totalBayar)}</td>
-                        <td class="p-3 text-right font-mono ${s.totalSisa > 0 ? 'text-rose-600 font-bold' : 'text-emerald-600'}">${formatRupiah(s.totalSisa)}</td>
-                        <td class="p-3 text-center space-x-1 flex items-center justify-center">
+                        <td class="p-3 text-right font-mono ${s.totalSisa > 0 ? 'text-rose-600 font-bold' : 'text-emerald-600'}">
+                            ${s.totalSisa < 0 ? `+ ${formatRupiah(Math.abs(s.totalSisa))}` : formatRupiah(s.totalSisa)}
+                        </td>
+                        <td class="p-3 text-center space-x-1 flex items-center justify-center gap-1">
                             <button onclick="reprintReceipt('${s.nomorRegistrasi}')" class="text-emerald-700 hover:text-white hover:bg-emerald-700 px-2 py-0.5 rounded border border-emerald-200 text-[11px] transition flex items-center gap-1"><i class="fas fa-print"></i> Cetak</button>
-                            <button onclick="deleteRecord('${s.nomorRegistrasi}')" class="text-rose-600 hover:text-white hover:bg-rose-600 px-2 py-0.5 rounded border border-rose-200 text-[11px] transition">Hapus</button>
+                            <button onclick="openEditModal('${s.nomorRegistrasi}')" class="text-amber-600 hover:text-white hover:bg-amber-500 px-2 py-0.5 rounded border border-amber-200 text-[11px] transition flex items-center gap-1"><i class="fas fa-edit"></i> Edit</button>
+                            <button onclick="deleteRecord('${s.nomorRegistrasi}')" class="text-rose-600 hover:text-white hover:bg-rose-600 px-2 py-0.5 rounded border border-rose-200 text-[11px] transition flex items-center gap-1"><i class="fas fa-trash"></i> Hapus</button>
                         </td>
                     </tr>`;
             });
@@ -906,15 +1073,6 @@
             });
         }
 
-        function exportExcel() {
-            const db = JSON.parse(localStorage.getItem("database_santri")) || [];
-            if(db.length === 0) return alert('Database masih kosong.');
-            const ws = XLSX.utils.json_to_sheet(db);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Database Santri");
-            XLSX.writeFile(wb, "Data_DaftarUlang_MTs_AlMajidiyah.xlsx");
-        }
-
         function backupData() {
             const raw = localStorage.getItem("database_santri") || "[]";
             const blob = new Blob([raw], {type: 'application/json'});
@@ -939,7 +1097,7 @@
             if(badge1) badge1.innerHTML = "KWITANSI RESMI - LEMBAR 1 (SANTRI)";
             
             const divider = document.createElement('div');
-            divider.className = "my-6 border-b-2 border-dashed border-slate-400 text-center relative h-4";
+            divider.className = "my-6 border-b-2 border-dashed border-slate-400 text-center relative h-4 no-print-pdf";
             divider.innerHTML = `<span class="bg-white px-3 text-[10px] font-bold text-slate-400 tracking-widest uppercase absolute -top-2.5 left-1/2 transform -translate-x-1/2">✂️ POTONG DI SINI</span>`;
             
             const copy2 = originalContent.cloneNode(true);
@@ -961,23 +1119,159 @@
             }, 1000);
         }
 
-        function exportToPDF() {
-            generateDoubleReceipt();
-            const doubleContainer = document.getElementById('printDoubleContainer');
-            doubleContainer.classList.remove('hidden');
+        async function exportToPDF() {
+            const btnPdf = document.querySelector("button[onclick='exportToPDF()']");
+            const originalText = btnPdf.innerHTML;
+            btnPdf.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memproses PDF...`;
+            btnPdf.disabled = true;
 
-            const options = {
-                margin:       10,
-                filename:     `Kwitansi_Rangkap_${currentStudentCleanName}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            
-            html2pdf().set(options).from(doubleContainer).save().then(() => {
+            try {
+                generateDoubleReceipt();
+                const doubleContainer = document.getElementById('printDoubleContainer');
+                
+                doubleContainer.classList.remove('hidden');
+                doubleContainer.style.display = 'block';
+
+                const options = {
+                    margin:       [10, 10, 10, 10],
+                    filename:     `Kwitansi_Rangkap_${currentStudentCleanName || 'Santri'}.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { 
+                        scale: 2, 
+                        useCORS: true, 
+                        logging: false,
+                        letterRendering: true
+                    },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+                
+                await html2pdf().set(options).from(doubleContainer).save();
+
+            } catch (error) {
+                console.error("Gagal mengekspor PDF:", error);
+                alert("Terjadi kesalahan saat menyimpan PDF.");
+            } finally {
+                const doubleContainer = document.getElementById('printDoubleContainer');
                 doubleContainer.classList.add('hidden');
+                doubleContainer.style.display = 'none';
                 doubleContainer.innerHTML = '';
+                
+                btnPdf.innerHTML = originalText;
+                btnPdf.disabled = false;
+            }
+        }
+
+        function openEditModal(regNo) {
+            const db = JSON.parse(localStorage.getItem("database_santri")) || [];
+            const student = db.find(s => s.nomorRegistrasi === regNo);
+            
+            if (!student) {
+                alert("Data siswa tidak ditemukan.");
+                return;
+            }
+
+            document.getElementById('editRegNo').value = student.nomorRegistrasi;
+            document.getElementById('editStudentName').value = student.nama;
+            document.getElementById('editNisn').value = student.nisn;
+            document.getElementById('editStudentStatus').value = student.statusAcademic;
+            document.getElementById('editStudentClass').value = student.kelas;
+            document.getElementById('editStudentMajor').value = student.jurusan;
+            document.getElementById('editDormitoryStatus').value = student.domisili;
+
+            const editTbody = document.getElementById('editPaymentTableBody');
+            editTbody.innerHTML = '';
+
+            const items = student.itemPayments && student.itemPayments.length > 0 
+                ? student.itemPayments 
+                : Object.entries(student.totalBaku === 3525000 ? hargaBakuCewek : hargaBakuCowok).map(([item, price]) => ({
+                    item, baku: price, bayar: 0, sisa: price
+                  }));
+
+            items.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50';
+                tr.innerHTML = `
+                    <td class="p-2 font-medium text-slate-700">${p.item}</td>
+                    <td class="p-2 text-right font-mono text-slate-400">${formatRupiah(p.baku)}</td>
+                    <td class="p-2 text-right">
+                        <input type="number" 
+                            data-edit-component="${p.item}" 
+                            data-edit-baku="${p.baku}" 
+                            value="${p.bayar}" 
+                            class="w-full border rounded p-1 text-right font-mono focus:outline-amber-500 text-xs">
+                    </td>
+                `;
+                editTbody.appendChild(tr);
             });
+
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function handleUpdateForm(event) {
+            event.preventDefault();
+            
+            const regNo = document.getElementById('editRegNo').value;
+            const nisnValue = document.getElementById('editNisn').value.trim();
+
+            if (nisnValue.length !== 10) {
+                alert("NISN harus berisikan 10 digit angka.");
+                return;
+            }
+
+            let db = JSON.parse(localStorage.getItem("database_santri")) || [];
+            const index = db.findIndex(s => s.nomorRegistrasi === regNo);
+
+            if (index === -1) {
+                alert("Gagal memperbarui, data tidak ditemukan.");
+                return;
+            }
+
+            if (db.some((s, idx) => s.nisn === nisnValue && idx !== index)) {
+                alert("NISN tersebut sudah digunakan oleh santri/siswa lain.");
+                return;
+            }
+
+            db[index].nama = document.getElementById('editStudentName').value.toUpperCase();
+            db[index].nisn = nisnValue;
+            db[index].statusAcademic = document.getElementById('editStudentStatus').value;
+            db[index].kelas = document.getElementById('editStudentClass').value;
+            db[index].jurusan = document.getElementById('editStudentMajor').value;
+            db[index].domisili = document.getElementById('editDormitoryStatus').value;
+
+            let totalBaku = 0;
+            let totalBayar = 0;
+            const updatedItemPayments = [];
+
+            document.querySelectorAll('#editPaymentTableBody input[type="number"]').forEach(input => {
+                const bk = parseInt(input.getAttribute('data-edit-baku')) || 0;
+                const by = parseInt(input.value) || 0;
+                totalBaku += bk;
+                totalBayar += by;
+                
+                updatedItemPayments.push({
+                    item: input.getAttribute('data-edit-component'),
+                    baku: bk,
+                    bayar: by,
+                    sisa: bk - by
+                });
+            });
+
+            db[index].totalBaku = totalBaku;
+            db[index].totalBayar = totalBayar;
+            db[index].totalSisa = totalBaku - totalBayar;
+            db[index].itemPayments = updatedItemPayments;
+
+            localStorage.setItem("database_santri", JSON.stringify(db));
+            
+            alert("Data profil & nominal kuitansi berhasil diperbarui!");
+            closeEditModal();
+            renderDatabaseMainTable();
+            updateDashboardMetrics();
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+            document.getElementById('editForm').reset();
         }
     </script>
 </body>

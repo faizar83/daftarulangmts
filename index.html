@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta name="google-site-verification" content="0gz7RyfccAVm6tyv9kXOnUhW0VxHv5ijATzvF2MK8tM" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - MTs. AL-MAJIDIYAH NWDI MAJIDI</title>
@@ -22,7 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-</head>
+    </head>
 <body class="bg-slate-100 antialiased text-slate-800 flex h-screen overflow-hidden">
 
     <div id="passwordGate" class="fixed inset-0 bg-emerald-900 flex items-center justify-center p-4 z-50">
@@ -1273,6 +1272,302 @@
             document.getElementById('editModal').classList.add('hidden');
             document.getElementById('editForm').reset();
         }
+        // GANTI DENGAN URL DARI GOOGLE APPS SCRIPT ANDA
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9LyfsgheD1uWioCR14HOhilwuSFMBjR-9DMBvysPtGY8iKQNkk20mV73nbvY1G-KU/exec"; 
+let globalDatabase = [];
+
+// 1. Ambil data online saat sistem pertama kali dibuka
+async function initSystemEngine() {
+    await refreshOnlineData();
+    updateDashboardMetrics();
+}
+
+async function refreshOnlineData() {
+    try {
+        const response = await fetch(SCRIPT_URL);
+        globalDatabase = await response.json();
+    } catch (error) {
+        console.error("Gagal memuat data online:", error);
+        alert("Gagal terhubung ke database pusat. Memuat data cadangan lokal...");
+        globalDatabase = JSON.parse(localStorage.getItem("database_santri")) || [];
+    }
+}
+
+// Tambahan fungsi pembantu agar fitur cetak ulang/reprint tetap bekerja mengambil data terbaru
+function getActiveDatabase() {
+    return globalDatabase;
+}
+
+// 2. Simpan Data Baru Secara Online
+async function handleSubmitForm(e) {
+    e.preventDefault();
+    const name = document.getElementById('studentName').value;
+    currentStudentCleanName = name.trim().replace(/\s+/g, '_');
+    
+    const nisnValue = document.getElementById('nisn').value.trim();
+    if (nisnValue.length !== 10) { alert("NISN harus 10 digit."); return; }
+    if (globalDatabase.some(s => s.nisn == nisnValue)) { alert("NISN sudah terdaftar."); return; }
+
+    const newRegNo = `REG-2026-${String(globalDatabase.length + 1).padStart(4, '0')}`;
+    const kwNo = `KW/2026/${String(globalDatabase.length + 1).padStart(4, '0')}`;
+    
+    let totalBaku = 0, totalBayar = 0;
+    const itemPayments = [];
+    
+    document.querySelectorAll('#paymentTableBody input[type="number"]').forEach(input => {
+        const bk = parseInt(input.getAttribute('data-baku')) || 0;
+        const by = parseInt(input.value) || 0;
+        totalBaku += bk; totalBayar += by;
+        itemPayments.push({ item: input.getAttribute('data-component'), baku: bk, bayar: by, sisa: bk - by });
+    });
+
+    const payload = {
+        action: "insert",
+        nomorRegistrasi: newRegNo, nomorKwitansi: kwNo, nama: name.toUpperCase(),
+        nisn: nisnValue, statusAcademic: document.getElementById('studentStatus').value,
+        kelas: document.getElementById('studentClass').value, jurusan: document.getElementById('studentMajor').value, 
+        domisili: document.getElementById('dormitoryStatus').value, wali: document.getElementById('waliName').value, 
+        ukuranBaju: document.querySelector('input[name="shirt_size"]:checked').value,
+        totalBaku, totalBayar, totalSisa: totalBaku - totalBayar, 
+        tanggalInput: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}),
+        itemPayments: itemPayments
+    };
+
+    // Tampilkan loading screen/notifikasi jika perlu
+    try {
+        await fetch(SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify(payload)
+        });
+        
+        // Simpan cadangan di lokal & perbarui memori
+        localStorage.setItem("database_santri", JSON.stringify(globalDatabase));
+        await refreshOnlineData(); 
+        
+        // Tampilkan Tampilan Nota/Kuitansi
+        tampilkanKwitansiKeLayar(payload);
+    } catch (err) {
+        alert("Gagal menginput data ke server. Periksa koneksi internet.");
+    }
+}
+
+// Fungsi pembantu memisahkan cetak layar kwitansi setelah sukses kirim data ke sheet
+function tampilkanKwitansiKeLayar(payload) {
+    document.getElementById('resName').innerText = `: ${payload.nama}`;
+    document.getElementById('resNisn').innerText = `: ${payload.nisn}`;
+    document.getElementById('resDorm').innerText = `: ${payload.domisili}`;
+    document.getElementById('resClassMajor').innerText = `: Kelas ${payload.kelas} - ${payload.jurusan}`;
+    document.getElementById('kwTanggal').innerText = `Tanggal: ${payload.tanggalInput}`;
+    document.getElementById('kwTtdTgl').innerText = payload.tanggalInput;
+    document.getElementById('resKwNo').innerText = payload.nomorKwitansi;
+    
+    const listTbody = document.getElementById('receiptListItems');
+    listTbody.innerHTML = '';
+    
+    payload.itemPayments.forEach((p, index) => {
+        if(p.bayar > 0) {
+            const sisaTeks = p.sisa < 0 ? `Lebih: ${formatRupiah(Math.abs(p.sisa))}` : formatRupiah(p.sisa);
+            const sisaWarna = p.sisa < 0 ? 'text-emerald-600 font-bold' : (p.sisa > 0 ? 'text-rose-600' : 'text-slate-500');
+            listTbody.innerHTML += `<tr>
+                <td class="border text-center">${index+1}</td>
+                <td class="border">${p.item}</td>
+                <td class="border text-right">${formatRupiah(p.baku)}</td>
+                <td class="border text-right font-bold">${formatRupiah(p.bayar)}</td>
+                <td class="border text-right ${sisaWarna}">${sisaTeks}</td>
+            </tr>`;
+        }
+    });
+
+    const totalSisaMurni = payload.totalBaku - payload.totalBayar;
+    const labelSisa = document.getElementById('rcTotalSisa').parentElement;
+    if (totalSisaMurni < 0) {
+        labelSisa.innerHTML = `<td colspan="4" class="p-1 border text-emerald-700 font-bold">KELEBIHAN PEMBAYARAN:</td><td id="rcTotalSisa" class="p-1 border font-mono text-emerald-700 font-bold">${formatRupiah(Math.abs(totalSisaMurni))}</td>`;
+    } else {
+        labelSisa.innerHTML = `<td colspan="4" class="p-1 border text-rose-700">SISA TUNGGAKAN:</td><td id="rcTotalSisa" class="p-1 border font-mono text-rose-700">${formatRupiah(totalSisaMurni)}</td>`;
+    }
+
+    document.getElementById('rcTotalBaku').innerText = formatRupiah(payload.totalBaku);
+    document.getElementById('rcTotalBayar').innerText = formatRupiah(payload.totalBayar);
+    document.getElementById('kwTerbilang').innerText = hitungTerbilang(payload.totalBayar) + " Rupiah";
+    document.getElementById('receiptModal').classList.remove('hidden');
+}
+
+// 3. Edit Data Secara Online
+async function handleUpdateForm(event) {
+    event.preventDefault();
+    const regNo = document.getElementById('editRegNo').value;
+    const nisnValue = document.getElementById('editNisn').value.trim();
+
+    if (nisnValue.length !== 10) { alert("NISN harus 10 digit."); return; }
+    
+    let totalBaku = 0, totalBayar = 0;
+    const updatedItemPayments = [];
+
+    document.querySelectorAll('#editPaymentTableBody input[type="number"]').forEach(input => {
+        const bk = parseInt(input.getAttribute('data-edit-baku')) || 0;
+        const by = parseInt(input.value) || 0;
+        totalBaku += bk; totalBayar += by;
+        updatedItemPayments.push({ item: input.getAttribute('data-edit-component'), baku: bk, bayar: by, sisa: bk - by });
+    });
+
+    const payload = {
+        action: "update", nomorRegistrasi: regNo,
+        nama: document.getElementById('editStudentName').value.toUpperCase(),
+        nisn: nisnValue, statusAcademic: document.getElementById('editStudentStatus').value,
+        kelas: document.getElementById('editStudentClass').value, jurusan: document.getElementById('editStudentMajor').value,
+        domisili: document.getElementById('editDormitoryStatus').value,
+        totalBaku, totalBayar, totalSisa: totalBaku - totalBayar, itemPayments: updatedItemPayments
+    };
+
+    try {
+        await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(payload) });
+        alert("Data berhasil diperbarui di server pusat!");
+        closeEditModal();
+        await refreshOnlineData();
+        renderDatabaseMainTable();
+        updateDashboardMetrics();
+    } catch (err) {
+        alert("Gagal memperbarui data online.");
+    }
+}
+
+// 4. Hapus Data Secara Online
+async function deleteRecord(regNo) {
+    if(confirm(`Yakin ingin menghapus berkas data nomor ${regNo} secara permanen dari server pusat?`)) {
+        try {
+            await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "delete", nomorRegistrasi: regNo })
+            });
+            await refreshOnlineData();
+            renderDatabaseMainTable();
+            updateDashboardMetrics();
+        } catch (err) {
+            alert("Gagal menghapus data di server.");
+        }
+    }
+}
+
+// 5. Sesuaikan fungsi bawaan lama agar membaca array 'globalDatabase' (Bukan LocalStorage langsung)
+function updateDashboardMetrics() {
+    const db = globalDatabase;
+    document.getElementById('stat-total').innerText = db.length;
+    const baru = db.filter(s => s.statusAcademic === 'Santri Baru').length;
+    const lama = db.filter(s => s.statusAcademic === 'Santri Lama').length;
+    document.getElementById('stat-baru').innerText = baru;
+    document.getElementById('stat-lama').innerText = lama;
+
+    let dana = 0, sisa = 0;
+    db.forEach(s => { dana += s.totalBayar; sisa += s.totalSisa; });
+    document.getElementById('stat-dana').innerText = formatRupiah(dana);
+    document.getElementById('stat-piutang').innerText = formatRupiah(sisa);
+
+    const payTbody = document.getElementById('dash-pay-table');
+    const stuTbody = document.getElementById('dash-student-table');
+    payTbody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-slate-400 italic">Belum ada data transaksi.</td></tr>';
+    stuTbody.innerHTML = '<tr><td colspan="4" class="p-4 text-center text-slate-400 italic">Belum ada data pendaftaran.</td></tr>';
+
+    if(db.length > 0) {
+        payTbody.innerHTML = ''; stuTbody.innerHTML = '';
+        db.slice(-5).reverse().forEach(s => {
+            payTbody.innerHTML += `<tr><td class="p-2 font-mono text-emerald-700">${s.nomorKwitansi || 'KW-01'}</td><td class="p-2 uppercase font-semibold">${s.nama}</td><td class="p-2 font-mono text-slate-700">${formatRupiah(s.totalBayar)}</td><td class="p-2 text-center"><button onclick="reprintReceipt('${s.nomorRegistrasi}')" class="text-emerald-600 hover:text-emerald-800"><i class="fas fa-print"></i></button></td></tr>`;
+            stuTbody.innerHTML += `<tr><td class="p-2 font-mono">${s.nomorRegistrasi}</td><td class="p-2 uppercase">${s.nama}</td><td class="p-2">${s.domisili}</td><td class="p-2 text-center"><span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-1.5 py-0.5 rounded-full">Aktif</span></td></tr>`;
+        });
+    }
+    renderVisualCharts(db);
+}
+
+function renderDatabaseMainTable() {
+    const db = globalDatabase;
+    const tbody = document.getElementById('dbMainTableBody');
+    tbody.innerHTML = '';
+    if(db.length === 0) { tbody.innerHTML = '<tr><td colspan="8" class="p-4 text-center text-slate-400 italic">Belum ada data siswa dalam cloud server.</td></tr>'; return; }
+    db.forEach(s => {
+        tbody.innerHTML += `<tr class="border-b hover:bg-slate-50 search-row">
+            <td class="p-3 font-mono text-slate-600">${s.nomorRegistrasi}</td>
+            <td class="p-3 font-bold text-slate-800 search-name">${s.nama}</td>
+            <td class="p-3 font-mono search-nisn">${s.nisn}</td>
+            <td class="p-3 text-slate-600">${s.statusAcademic} / Kelas ${s.kelas || '-'} (${s.jurusan || '-'})</td>
+            <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${s.domisili === 'Asrama' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}">${s.domisili}</span></td>
+            <td class="p-3 text-right font-mono font-medium">${formatRupiah(s.totalBayar)}</td>
+            <td class="p-3 text-right font-mono ${s.totalSisa > 0 ? 'text-rose-600 font-bold' : 'text-emerald-600'}">${s.totalSisa < 0 ? `+ ${formatRupiah(Math.abs(s.totalSisa))}` : formatRupiah(s.totalSisa)}</td>
+            <td class="p-3 text-center space-x-1 flex items-center justify-center gap-1">
+                <button onclick="reprintReceipt('${s.nomorRegistrasi}')" class="text-emerald-700 hover:text-white hover:bg-emerald-700 px-2 py-0.5 rounded border border-emerald-200 text-[11px] transition flex items-center gap-1"><i class="fas fa-print"></i> Cetak</button>
+                <button onclick="openEditModal('${s.nomorRegistrasi}')" class="text-amber-600 hover:text-white hover:bg-amber-500 px-2 py-0.5 rounded border border-amber-200 text-[11px] transition flex items-center gap-1"><i class="fas fa-edit"></i> Edit</button>
+                <button onclick="deleteRecord('${s.nomorRegistrasi}')" class="text-rose-600 hover:text-white hover:bg-rose-600 px-2 py-0.5 rounded border border-rose-200 text-[11px] transition flex items-center gap-1"><i class="fas fa-trash"></i> Hapus</button>
+            </td>
+        </tr>`;
+    });
+}
+
+function renderPaymentHistoryTable() {
+    const db = globalDatabase;
+    const tbody = document.getElementById('paymentHistoryTableBody');
+    tbody.innerHTML = '';
+    if(db.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400 italic">Belum ada rekam transaksi terbuat.</td></tr>'; return; }
+    db.forEach(s => {
+        tbody.innerHTML += `<tr class="border-b hover:bg-slate-50">
+            <td class="p-3 font-mono text-slate-500">${s.tanggalInput}</td>
+            <td class="p-3 font-mono font-bold text-emerald-800">${s.nomorKwitansi || 'KW/2026/001'}</td>
+            <td class="p-3 uppercase font-medium text-slate-800">${s.nama}</td>
+            <td class="p-3 text-slate-500">Kelas ${s.kelas || '-'} - ${s.jurusan || '-'}</td>
+            <td class="p-3 text-right font-mono font-bold text-slate-700">${formatRupiah(s.totalBayar)}</td>
+            <td class="p-3 text-center"><span class="bg-teal-50 text-teal-800 text-[10px] font-bold px-2 py-0.5 border border-teal-200 rounded">TERVALIDASI</span></td>
+        </tr>`;
+    });
+}
+
+function exportExcel() {
+    const db = globalDatabase;
+    if (db.length === 0) { alert('Database masih kosong.'); return; }
+    const laporanExcel = db.map((santri, index) => ({
+        "No": index + 1, "Tanggal Daftar": santri.tanggalInput || "-", "No. Registrasi": santri.nomorRegistrasi || "-",
+        "No. Kuitansi": santri.nomorKwitansi || "-", "Nama Lengkap": santri.nama || "-", "NISN": santri.nisn || "-",
+        "Status": santri.statusAcademic || "-", "Kelas": santri.kelas || "-", "Jurusan": santri.jurusan || "-",
+        "Sistem Domisili": santri.domisili || "-", "Wali Murid": santri.wali || "-", "Ukuran Baju": santri.ukuranBaju || "-",
+        "Total Baku (Rp)": santri.totalBaku || 0, "Total Terbayar (Rp)": santri.totalBayar || 0, "Sisa Tunggakan (Rp)": santri.totalSisa || 0,
+        "Status Pembayaran": (santri.totalSisa <= 0) ? "LUNAS" : "BELUM LUNAS"
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(laporanExcel);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data Daftar Ulang");
+    XLSX.writeFile(workbook, `Laporan_DaftarUlang_MTs_AlMajidiyah_${new Date().getFullYear()}.xlsx`);
+}
+
+function reprintReceipt(regNo) {
+    const db = getActiveDatabase();
+    const student = db.find(s => s.nomorRegistrasi === regNo);
+    if (!student) { alert("Data tidak ditemukan."); return; }
+    tampilkanKwitansiKeLayar(student);
+}
+
+function openEditModal(regNo) {
+    const db = getActiveDatabase();
+    const student = db.find(s => s.nomorRegistrasi === regNo);
+    if (!student) { alert("Data siswa tidak ditemukan."); return; }
+
+    document.getElementById('editRegNo').value = student.nomorRegistrasi;
+    document.getElementById('editStudentName').value = student.nama;
+    document.getElementById('editNisn').value = student.nisn;
+    document.getElementById('editStudentStatus').value = student.statusAcademic;
+    document.getElementById('editStudentClass').value = student.kelas;
+    document.getElementById('editStudentMajor').value = student.jurusan;
+    document.getElementById('editDormitoryStatus').value = student.domisili;
+
+    const editTbody = document.getElementById('editPaymentTableBody');
+    editTbody.innerHTML = '';
+
+    student.itemPayments.forEach(p => {
+        editTbody.innerHTML += `<tr class="hover:bg-slate-50">
+            <td class="p-2 font-medium text-slate-700">${p.item}</td>
+            <td class="p-2 text-right font-mono text-slate-400">${formatRupiah(p.baku)}</td>
+            <td class="p-2 text-right">
+                <input type="number" data-edit-component="${p.item}" data-edit-baku="${p.baku}" value="${p.bayar}" class="w-full border rounded p-1 text-right font-mono focus:outline-amber-500 text-xs">
+            </td>
+        </tr>`;
+    });
+    document.getElementById('editModal').classList.remove('hidden');
+}
     </script>
 </body>
 </html>
